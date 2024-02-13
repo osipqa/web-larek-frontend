@@ -83,7 +83,8 @@ const config = {
         keep_fnames: true
       }
     })]
-  }
+  },
+  devtool: 'inline-source-map'
 };
 
 module.exports = () => {
