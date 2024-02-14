@@ -1,6 +1,6 @@
 import { successTemplate, popup } from "..";
 import { cloneTemplate } from "../utils/utils";
-import { Success } from "./popup";
+import { Success } from "./order";
 
 // Cache to store API responses
 export const apiCache: Record<string, any> = {};

@@ -1,18 +1,19 @@
 // Importing global styles
 import './scss/styles.scss';
 
+// Importing necessary modules and constants 
+import { State } from './components/state';
 import { EventEmitter } from './components/base/events';
+import { Basket, BasketItem } from './components/basket';
 import { apiCache, handleSuccess } from './components/cacheAPI';
-import { State, Page, Card } from './components/page';
-import { PopupComponent, Basket, Order, Contact, BasketItem } from './components/popup';
+import { Card } from './components/card';
+import { Order, Contact } from './components/order';
+import { Page } from './components/page';
+import { PopupComponent } from './components/popup';
 import { ProductAPI } from './components/productAPI';
 import { IProd, IOrderF } from './types';
 import { CDN_URL, API_URL, settings } from './utils/constants';
 import { ensureElement, cloneTemplate } from './utils/utils';
-
-
-// Importing necessary modules and constants
-
 
 // Initializing API and event emitter
 const api = new ProductAPI(CDN_URL, API_URL);
