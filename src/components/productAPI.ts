@@ -1,5 +1,5 @@
-import { Api, ApiListResponse } from './api';
-import { IProd, IOrder, IOrderResult } from '../../types/index';
+import { IOrder, IOrderResult, IProd } from "../types";
+import { Api, ApiListResponse } from "./base/api";
 
 // Define interface for Product API methods
 export interface IProductAPI {
