@@ -2,7 +2,7 @@
 import './scss/styles.scss';
 
 import { EventEmitter } from './components/base/events';
-import { apiCache, handleSuccess } from './components/chacheAPI';
+import { apiCache, handleSuccess } from './components/cacheAPI';
 import { State, Page, Card } from './components/page';
 import { PopupComponent, Basket, Order, Contact, BasketItem } from './components/popup';
 import { ProductAPI } from './components/productAPI';
