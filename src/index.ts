@@ -6,9 +6,14 @@ import { ProductAPI } from './components/base/productAPI';
 import { API_URL, CDN_URL, settings } from './utils/constants'; // Importing settings from constants
 import { ensureElement, cloneTemplate } from './utils/utils';
 import { EventEmitter } from './components/base/events';
-import { PopupComponent, Basket, BasketItem, Order, Contact, Success } from './components/base/popup';
-import { Card, Page, State } from './components/base/page';
+import { PopupComponent } from './components/base/popup';
+import { Page } from './components/base/page';
+import { Card } from './components/base/card';
+import { State } from './components/base/state';
 import { IOrderF, IProd } from './types';
+import { Basket, BasketItem } from './components/base/basket';
+import { Order, Contact } from './components/base/orders';
+import { apiCache, handleSuccess } from './components/base/cashAPI';
 
 // Initializing API and event emitter
 const api = new ProductAPI(CDN_URL, API_URL);
@@ -21,12 +26,12 @@ const basketTemplate = ensureElement<HTMLTemplateElement>(`#${settings.basketTem
 const basketCardTemplate = ensureElement<HTMLTemplateElement>(`#${settings.templateBask}`);
 const orderTemplate = ensureElement<HTMLTemplateElement>(`#${settings.orderTemplate}`);
 const contactsTemplate = ensureElement<HTMLTemplateElement>(`#${settings.contactsTemplate}`);
-const successTemplate = ensureElement<HTMLTemplateElement>(`#${settings.successTemplate}`);
+export const successTemplate = ensureElement<HTMLTemplateElement>(`#${settings.successTemplate}`);
 
 // Initializing application state, page, and popup components
 const state = new State({}, events);
 const page = new Page(document.body, events)
-const popup = new PopupComponent(ensureElement<HTMLElement>(`#${settings.modalContainer}`), events);
+export	const popup = new PopupComponent(ensureElement<HTMLElement>(`#${settings.modalContainer}`), events);
 
 // Initializing basket, order, and contact components
 const basket = new Basket(cloneTemplate(basketTemplate), events);
@@ -35,21 +40,13 @@ const contact = new Contact(cloneTemplate(contactsTemplate), events);
 
 // Handling event to open basket popup
 events.on('basket:open', () => {
-  console.log('Event basket:open was handled');
   popup.render({
     content: basket.render(),
   });
 });
 
-// Logging constants and initial basket content
-console.log('CDN_URL:', CDN_URL);
-console.log('API_URL:', API_URL);
-console.log('Basket Render Content:', basket.render());
-
 // Handling items change event
 events.on('items:changed', () => {
-  console.log('Items changed event triggered');
-  console.log('Current state catalogue:', state.catalogue);
   page.catalogue = state.catalogue.map((item) => {
     const card = new Card(`card`, cloneTemplate(cardCatalogTemplate), {
       onClick: () => {
@@ -93,7 +90,6 @@ events.on('basket:changed', () => {
 // Handling card selection event
 events.on('card:select', (item: IProd) => {
 	if (item) {
-		console.log('item' + item);
 			api.getProductItem(item.id)
 				.then((res) => {
 					const card = new Card('card', cloneTemplate(cardPreviewTemplate), {
@@ -123,8 +119,7 @@ events.on('card:select', (item: IProd) => {
 					});
 				})
 				.catch((err) => {
-					console.error(`theres not item: ` + item);
-					console.error(`theres more long ` + err);
+					console.error(`Error: ` + err);
 				});
 	} else {
 		popup.close();
@@ -182,31 +177,27 @@ events.on('modal:close', () => {
 	page.locked = false;
 })
 
-// Handling order submit event
+// Event handler for order submission
 events.on('order:submit', () => {
-	api
-	.orderProduct(state.order)
-	.then((res) => {
-		state.clearBasket();
-		const success = new Success(cloneTemplate(successTemplate), {
-			onClick: () => {
-				popup.close();
-			},
-		});
-		popup.render({
-			content: success.render({
-				total: res.total
-			})
-		})
-	})
-	.catch((err) => {
-		console.error(err);
-	});
-})
+  const cachedResult = apiCache[JSON.stringify(state.order)]; 
+  if (cachedResult) {    					// Check if the result is already cached
+    handleSuccess(cachedResult); 	// Use the cached result
+  } else {
+    api 	
+      .orderProduct(state.order)  // Make an API request to order the product
+      .then((res) => {
+        apiCache[JSON.stringify(state.order)] = res;	// Cache the API response
+        state.clearBasket();													// Clear the basket
+        handleSuccess(res);										        // Handle the success response
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+});
 
 // Handling order change event
 events.on('order:change', (data: {field: keyof IOrderF; value: string}) => {
-	console.log(`shto takoe data` + data.value);
 	state.setField(data.field, data.value);
 })
 

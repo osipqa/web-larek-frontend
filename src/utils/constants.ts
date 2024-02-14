@@ -30,3 +30,11 @@ export const settings = {
     price: '.card__price'         // CSS class for the card price element
   }
 };
+
+export const categoryValues = {
+  softSkill: 'софт-скил',
+  hardSkill: 'хард-скил',
+  button: 'кнопка',
+  other: 'другое',
+  additional: 'дополнительное',
+};

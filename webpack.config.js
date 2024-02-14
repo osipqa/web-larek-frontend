@@ -84,7 +84,7 @@ const config = {
       }
     })]
   },
-  devtool: 'inline-source-map'
+  /* devtool: 'inline-source-map' */
 };
 
 module.exports = () => {

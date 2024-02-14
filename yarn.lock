@@ -2521,6 +2521,8 @@ get-stream@^6.0.0:
 
 gh-pages@^5.0.0:
   version "5.0.0"
+  resolved "http://npm.prakticum-team.ru/gh-pages/-/gh-pages-5.0.0.tgz"
+  integrity sha512-Nqp1SjkPIB94Xw/3yYNTUL+G2dxlhjvv1zeN/4kMC1jfViTEqhtVz/Ba1zSXHuvXCN9ADNS1dN4r5/J/nZWEQQ==
   dependencies:
     async "^3.2.4"
     commander "^2.18.0"
@@ -2830,8 +2832,13 @@ interpret@^1.0.0:
 interpret@^3.1.1:
   version "3.1.1"
 
-ip@^2.0.0:
-  version "2.0.0"
+ip-address@^9.0.5:
+  version "9.0.5"
+  resolved "http://npm.prakticum-team.ru/ip-address/-/ip-address-9.0.5.tgz"
+  integrity sha512-zHtQzGojZXTwZTHQqra+ETKd4Sn3vgi7uBmlPoXVWZqYvuKmtI0l/VZTjqGmJY9x88GGOaZ9+G9ES8hC4T4X8g==
+  dependencies:
+    jsbn "1.1.0"
+    sprintf-js "^1.1.3"
 
 ipaddr.js@^2.0.1:
   version "2.0.1"
@@ -2962,6 +2969,11 @@ js-yaml@^4.1.0:
   version "4.1.0"
   dependencies:
     argparse "^2.0.1"
+
+jsbn@1.1.0:
+  version "1.1.0"
+  resolved "http://npm.prakticum-team.ru/jsbn/-/jsbn-1.1.0.tgz"
+  integrity sha512-4bYVV3aAMtDTTu4+xsDYa6sy9GyJ69/amsu9sYF2zqjiEoZA5xJi3BrfX3uY+/IekIu7MwdObdbDWpoZdBv3/A==
 
 jsesc@^2.5.1:
   version "2.5.2"
@@ -4021,7 +4033,14 @@ sass@^1.3.0, sass@^1.62.1:
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
 
-schema-utils@^3.1.1, schema-utils@^3.1.2:
+schema-utils@^3.1.1:
+  version "3.1.2"
+  dependencies:
+    "@types/json-schema" "^7.0.8"
+    ajv "^6.12.5"
+    ajv-keywords "^3.5.2"
+
+schema-utils@^3.1.2:
   version "3.1.2"
   dependencies:
     "@types/json-schema" "^7.0.8"
@@ -4190,9 +4209,11 @@ socks-proxy-agent@^7.0.0:
     socks "^2.6.2"
 
 socks@^2.6.2:
-  version "2.7.1"
+  version "2.7.3"
+  resolved "http://npm.prakticum-team.ru/socks/-/socks-2.7.3.tgz"
+  integrity sha512-vfuYK48HXCTFD03G/1/zkIls3Ebr2YNa4qU9gHDZdblHLiqhJrJGkY3+0Nx0JpN9qBhJbVObc1CNciT1bIZJxw==
   dependencies:
-    ip "^2.0.0"
+    ip-address "^9.0.5"
     smart-buffer "^4.2.0"
 
 sort-keys@^4.2.0:
@@ -4248,6 +4269,11 @@ spdy@^4.0.2:
     http-deceiver "^1.2.7"
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
+
+sprintf-js@^1.1.3:
+  version "1.1.3"
+  resolved "http://npm.prakticum-team.ru/sprintf-js/-/sprintf-js-1.1.3.tgz"
+  integrity sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA==
 
 sprintf-js@~1.0.2:
   version "1.0.3"
@@ -4356,7 +4382,7 @@ tar@^6.0.2, tar@^6.1.0, tar@^6.1.11, tar@^6.1.2:
     mkdirp "^1.0.3"
     yallist "^4.0.0"
 
-terser-webpack-plugin@^5.3.10:
+terser-webpack-plugin@^5.3.10, terser-webpack-plugin@^5.3.7:
   version "5.3.10"
   dependencies:
     "@jridgewell/trace-mapping" "^0.3.20"
@@ -4365,16 +4391,7 @@ terser-webpack-plugin@^5.3.10:
     serialize-javascript "^6.0.1"
     terser "^5.26.0"
 
-terser-webpack-plugin@^5.3.7:
-  version "5.3.7"
-  dependencies:
-    "@jridgewell/trace-mapping" "^0.3.17"
-    jest-worker "^27.4.5"
-    schema-utils "^3.1.1"
-    serialize-javascript "^6.0.1"
-    terser "^5.16.5"
-
-terser@^5.10.0, terser@^5.16.5:
+terser@^5.10.0:
   version "5.17.1"
   dependencies:
     "@jridgewell/source-map" "^0.3.2"
